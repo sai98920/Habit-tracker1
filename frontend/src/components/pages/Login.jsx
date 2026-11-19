@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext'; // Adjust path if needed
-import api from'../../../api'; // Adjust path if needed
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext"; // Adjust path if needed
+import api from "../../../api"; // Adjust path if needed
 const Login = () => {
   const { login } = useAuth(); // from your AuthContext
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   // Handle input changes
@@ -18,15 +18,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/api/login', form, {
+      const res = await api.post("/api/login", form, {
         withCredentials: true, // 🔥 necessary for cookies
       });
 
-      const success=login(form); // ✅ update auth state in context
-      if(success)navigate('/dashboard'); // redirect on success
-      setForm({ email: '', password: '' }); // reset form
+      login(form);
+      navigate("/dashboard");
+      setForm({ email: "", password: "" }); // reset form
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Login failed');
+      setMessage(err.response?.data?.message || "Login failed");
     }
   };
 
