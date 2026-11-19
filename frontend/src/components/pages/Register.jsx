@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
-  const [message, setMessage] = useState('');
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -14,19 +14,27 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/register', form);
+      const res = await axios.post(
+        "https://habit-tracker-backend-9ood.onrender.com/api/register",
+        form,
+      );
       setMessage(res.data.message);
-      navigate('/login'); // Redirect to login page after successful registration
-      setForm({ username: '', email: '', password: '' }); // Reset form after successful registration
+      navigate("/login"); // Redirect to login page after successful registration
+      setForm({ username: "", email: "", password: "" }); // Reset form after successful registration
     } catch (err) {
-      setMessage(err.response?.data?.message || 'Registration failed');
+      setMessage(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-100 to-indigo-300 p-6">
-      <form className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md transition-all transform hover:scale-105" onSubmit={handleSubmit}>
-        <h2 className="text-3xl font-semibold text-center text-indigo-600 mb-6">Create an Account</h2>
+      <form
+        className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md transition-all transform hover:scale-105"
+        onSubmit={handleSubmit}
+      >
+        <h2 className="text-3xl font-semibold text-center text-indigo-600 mb-6">
+          Create an Account
+        </h2>
 
         <div className="space-y-6">
           <input
@@ -66,7 +74,9 @@ const Register = () => {
           Register
         </button>
 
-        {message && <p className="text-center text-sm mt-4 text-gray-700">{message}</p>}
+        {message && (
+          <p className="text-center text-sm mt-4 text-gray-700">{message}</p>
+        )}
       </form>
     </div>
   );
